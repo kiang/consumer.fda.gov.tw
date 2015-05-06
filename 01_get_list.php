@@ -23,7 +23,9 @@ $fh = fopen(__DIR__ . '/list.csv', 'w');
 fputcsv($fh, array(
     'id',
     '發布日期',
-    '標題',
+    '國家',
+    '產品名',
+    '原因',
     '報驗受理日期',
     '進口商(公司名稱)',
     '製造廠或出口商名稱',
@@ -77,10 +79,13 @@ while ($currentPage <= $totalPage) {
                     }
             }
         }
+        preg_match('/(.+)出口「(.+?)」(.+)$/', $itemObj['標題'], $matches);
         fputcsv($fh, array(
             $item->idx,
             $itemObj['發布日期'],
-            $itemObj['標題'],
+            $matches[1],
+            $matches[2],
+            $matches[3],
             $itemObj['報驗受理日期'],
             $itemObj['進口商(公司名稱)'],
             $itemObj['製造廠或出口商名稱'],
